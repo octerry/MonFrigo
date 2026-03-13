@@ -136,3 +136,89 @@ main {
     width: 30px;
     fill: #659C74;
 }
+
+#edit_popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    width: 40vw;
+
+    background-color: #fff;
+    box-shadow: 0 0 5px #00000090;
+    border-radius: 10px;
+    font-family: "Instrument Sans";
+
+    h2 {
+        font-size: 15px;
+        font-weight: 200;
+        margin-bottom: 0;
+    }
+}
+
+.change-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+    
+        .change-icon-button {
+            background-color: #00000030;
+        }
+    }
+}
+
+.change-icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: fit-content;
+    height: 30px;
+    margin-top: 5px;
+
+    border-radius: 10px;
+    background-color: #D9D9D980;
+
+    h1 {
+        font-size: 20px;
+        font-weight: 300;
+    }
+}
+
+.date-preference {
+    display: flex;
+    align-items: center;
+
+    h3 {
+        color: #357348;
+        font-size: 10px;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .bold {
+        font-size: 10px;
+        font-weight: 600;
+        margin: 0 2px;
+    }
+}
+
+.submit-button {
+    width: 100%;
+    height: 30px;
+    margin-top: 2px;
+    border-radius: 6px;
+    border: none;
+    background-color: #357348;
+    color: #D0FADB;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #5ca271;
+        color: #fff
+    }
+}
