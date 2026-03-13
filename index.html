@@ -29,33 +29,12 @@ MADE ON EARTH BY HUMANS
     <main>
         <div class="section">
             <h2 class="section-title">Passés</h2>
-            <div class="dead cell">
-                <div class="left-cell">
-                    <h1>Nom produit</h1>
-                    <h3>xx/xx/xxxx</h3>
-                </div>
-                <img class="cell-icon" src="source/foodCanIcon.svg" alt="foodIcon">
-            </div>
         </div>
         <div class="section">
             <h2 class="section-title">Cette semaine</h2>
-            <div class="cell">
-                <div class="left-cell">
-                    <h1>Nom produit</h1>
-                    <h3>xx/xx/xxxx</h3>
-                </div>
-                <img class="cell-icon" src="source/foodCanIcon.svg" alt="foodIcon">
-            </div>
         </div>
         <div class="section">
             <h2 class="section-title">Plus tard</h2>
-            <div class="cell">
-                <div class="left-cell">
-                    <h1>Nom produit</h1>
-                    <h3>xx/xx/xxxx</h3>
-                </div>
-                <img class="cell-icon" src="source/foodCanIcon.svg" alt="foodIcon">
-            </div>
         </div>
     </main>
     <footer>
@@ -68,6 +47,12 @@ MADE ON EARTH BY HUMANS
     </footer>
     <div> <!-- POPUPS -->
         <div id="edit_popup" class="popup">
+            <div class="close-cross">
+                <svg viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="1.76777" y1="1.76788" x2="32.3701" y2="32.3702" stroke-width="5"/>
+                    <line x1="2.23223" y1="32.3702" x2="32.8345" y2="1.76788" stroke-width="5"/>
+                </svg>
+            </div>
             <div class="change-icon">
                 <img src="source/foodCanIcon.svg" alt="icon">
                 <div class="change-icon-button">
@@ -76,17 +61,21 @@ MADE ON EARTH BY HUMANS
             </div>
             <div>
                 <h2>Nom</h2>
-                <input type="text" placeholder="Nom du produit">
+                <input id="name_input" type="text" placeholder="Nom du produit" class="input">
             </div>
             <div>
                 <h2>Date de peremption</h2>
                 <div class="date-preference">
-                    <input type="checkbox">
+                    <input type="checkbox" id="check_input">
                     <h3>"... de </h3><h3 class="bold">preference</h3><h3> avant le"</h3>
                 </div>
-                <input type="date">
+                <input id="date_input" type="text" class="input" placeholder="Jour/Mois/Année">
             </div>
-            <input class="submit-button" type="submit" value="Enregistrer">
+            <div id="error_place">
+                <ul>
+                </ul>
+            </div>
+            <div id="submit_button">Enregistrer</div>
         </div>
         <div id="show_popup" class="popup">
             <div>
