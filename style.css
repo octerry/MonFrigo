@@ -11,6 +11,36 @@ MADE ON EARTH BY HUMANS */
 /*  */
 @import url('https://fonts.googleapis.com/css2?family=Handlee&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
 
+:root{
+    --bgColor: #fff;
+    --txtColor: #000;
+    --settingsColor: #676767;
+    --cellBgColor: #fff;
+    --inputBg: #0C1216;
+    --inputBorder: 1px solid #357348;
+    --txtName: #144021;
+    --txtUnder: #357348;
+    --delColor1: #733536;
+    --delColor2: #4E0F10;
+    --popupBorder: none;
+    --greenFilter: filter: brightness(0) saturate(100%) invert(54%) sepia(43%) saturate(342%) hue-rotate(68deg) brightness(94%) contrast(91%);
+}
+
+.dark {
+    --bgColor: #171F24;
+    --txtColor: #fff;
+    --settingsColor: #fff;
+    --cellBgColor: #0D2A08;
+    --inputBg: #0C1216;
+    --inputBorder: 1px solid #357348;
+    --txtName: #fff;
+    --txtUnder: #9FD8B0;
+    --delColor1: #D8B7B8;
+    --delColor2: #fff;
+    --popupBorder: 1px solid #fff;
+    --greenFilter: none;
+}
+
 html,
 body {
     padding: 0;
@@ -18,7 +48,8 @@ body {
 }
 
 body {
-    background-color: #fff;
+    background-color: var(--bgColor);
+    color: var(--txtColor);
 }
 
 header {
@@ -48,7 +79,7 @@ main {
         font-family: "Instrument Sans";
         font-weight: 300;
         font-size: 15px;
-        color: #000;
+        color: var(--txtColor);
 
         margin-left: 20px;
         margin-bottom: 0;
@@ -61,7 +92,17 @@ main {
     right: 20px;
 
     width: 30px;
-    fill: #676767;
+    fill: var(--settingsColor);
+    transition: transform .2s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.section {
+    display: none;
 }
 
 .cell {
@@ -73,15 +114,18 @@ main {
     padding: 5px 10px;
     margin: 2px;
 
-    background-color: #fff;
+    background-color: var(--cellBgColor);
     border: 3px solid #699C65;
     border-radius: 20px;
+    box-shadow: 3px 3px 2px #00000030;
+
+    transition: transform .2s, box-shadow .2s;
 
     h1 {
         font-family: "Instrument Sans";
         font-weight: 200;
         font-size: 20px;
-        color: #000;
+        color: var(--txtColor);
     }
 
     h3 {
@@ -94,6 +138,13 @@ main {
 
     img {
         width: 40px;
+        filter: brightness(0) saturate(100%) invert(54%) sepia(43%) saturate(342%) hue-rotate(68deg) brightness(94%) contrast(91%);
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+        box-shadow: 5px 5px 4px #00000040;
     }
 }
 
@@ -137,20 +188,26 @@ main {
     fill: #659C74;
 }
 
-#edit_popup {
+.popup {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: scale(0) translate(-50%, -50%);
-    padding: 10px;
     width: 300px;
     max-width: 80vw;
     min-width: 30vh;
+    z-index: 2;
 
-    background-color: #fff;
-    box-shadow: 0 0 5px #00000090;
+    transform: scale(0)  translate(-50%, -50%);
+    background-color: var(--bgColor);
+    padding: 3px;
+    box-shadow: 0 0 5px #00000050;
+    border: var(--popupBorder);
     border-radius: 10px;
     font-family: "Instrument Sans";
+}
+
+#edit_popup {
+    padding: 10px;
 
     animation-fill-mode: forwards;
 
@@ -161,11 +218,11 @@ main {
     }
 
     .input {
-        background-color: #49804330;
+        padding: 10px;
+        background-color: var(--inputBg);
+        border: var(--inputBorder);
         color: #357348;
-        border: none;
-        border-radius: 5px;
-        padding: 3px;
+        border-radius: 7px;
         box-shadow: inset 2px 2px 1px #00000030;
         width: 95%;
         transition: background-color .3s, color .3s;
@@ -186,23 +243,222 @@ main {
     }
 }
 
+#show_popup {
+    h1 {
+        font-size: 20px;
+        font-weight: 200;
+        margin: 0 10px;
+        color: var(--txtUnder);
+    }
+
+    h2 {
+        font-size: 12px;
+        font-weight: 100;
+        margin-bottom: -5px;
+        margin-left: 30px;
+        color: var(--txtName);
+    }
+
+    #show_icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        
+        img {
+            width: 80px;
+            filter: var(--greenFilter);
+        }
+    }
+
+    #show_buttons {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+
+        div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 30px;
+            border-radius: 8px;
+            margin: 2px;
+            transition: background-color .2s, color .2s;
+        }
+
+        #show_edit {
+            background-color: #357348;
+            color: #D0FADB;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #609c72;
+                color: #fff;
+            }
+        }
+
+        #show_delete {
+            background-color: #733536;
+            color: #FAD0D1;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #995c5d;
+                color: #fff;
+            }
+        }
+    }
+}
+
+#delete_popup {
+    #delete_message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10px;
+        padding-right: 30px;
+        margin: -20px 0;
+
+        svg {
+            width: 45px;
+            margin-right: 5px;
+            fill: var(--delColor1);
+        }
+
+        h2 {
+            font-weight: 100;
+            font-size: 12px;
+            color: var(--delColor1);
+        }
+
+        span {
+            font-weight: 500;
+            color: var(--delColor2);
+        }
+    }
+
+    #final_delete_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+
+        border-radius: 8px;
+        background-color: #733536;
+        color: #FAD0D1;
+        height: 35px;
+
+        transition: background-color .2s, color .2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #c78283;
+            color: #fff;
+        }
+    }
+}
+
+#icon_popup {
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .icon_button {
+        width: 60px;
+        margin: 5px;
+        transition: transform .2s;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.3);
+        }
+    }
+}
+
+#settings_popup {
+    h1 {
+        font-size: 20px;
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    #darkmode_check {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+
+        h2 {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+            margin: 5px;
+        }
+    }
+
+    #delete_all_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #733536;
+        color: #FAD0D1;
+        border-radius: 8px;
+        height: 30px;
+        transition: background-color .2s, color .2s;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #a56061;
+            color: #fff;
+        }
+    }
+}
+
+#black_screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+
+    background-color: #00000090;
+    pointer-events: none;
+}
+
 .close-cross {
     position: absolute;
+    top: 10px;
     right: 10px;
     width: 17px;
     stroke: #737373;
 
+    transition: stroke .2s;
+
     &:hover {
         cursor: pointer;
+        stroke: #973737;
     }
 }
 
-.change-icon {
+#change_icon {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: fit-content;
     justify-self: center;
+
+    img {
+        height: 100px;
+        filter: var(--greenFilter);
+    }
 
     &:hover {
         cursor: pointer;
@@ -268,15 +524,61 @@ main {
     width: 100%;
     height: 30px;
     margin-top: 10px;
+
     border-radius: 6px;
     border: none;
     background-color: #357348;
     color: #D0FADB;
+    transition: background-color .2s, color .2s;
 
     &:hover {
         cursor: pointer;
         background-color: #5ca271;
         color: #fff
+    }
+}
+
+#welcome_text {
+    position: fixed;
+    top: 20vh;
+    left: 50%;
+    width: 200px;
+    transform: translateX(-50%);
+
+    font-family: "instrument sans";
+    text-align: center;
+
+    h1 {
+        font-weight: 500;
+        font-size: 30px;
+    }
+
+    span {
+        font-family: "Handlee";
+        font-weight: 500;
+        font-size: 35px;
+        margin-left: 5px;
+    }
+}
+
+#arrow {
+    position: fixed;
+    bottom: 0px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    pointer-events: none;
+
+    font-family: "instrument sans";
+    font-size: 15px;
+    text-align: center;
+    stroke: var(--txtColor);
+
+    svg {
+        position: relative;
+        margin-right: 40px;
     }
 }
 
@@ -301,5 +603,27 @@ main {
     }
     100% {
         transform: scale(0) translate(-75%, -75%);
+    }
+}
+
+@keyframes blackScreenAppear {
+    0% {
+        opacity: 0;
+        pointer-events: none;
+    }
+    100% {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+@keyframes blackScreenDisappear {
+    0% {
+        opacity: 1;
+        pointer-events: all;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
     }
 }
