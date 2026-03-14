@@ -16,14 +16,15 @@ MADE ON EARTH BY HUMANS */
     --txtColor: #000;
     --settingsColor: #676767;
     --cellBgColor: #fff;
-    --inputBg: #0C1216;
-    --inputBorder: 1px solid #357348;
+    --inputBg: #49804340;
+    --inputBorder: none;
     --txtName: #144021;
     --txtUnder: #357348;
     --delColor1: #733536;
     --delColor2: #4E0F10;
     --popupBorder: none;
-    --greenFilter: filter: brightness(0) saturate(100%) invert(54%) sepia(43%) saturate(342%) hue-rotate(68deg) brightness(94%) contrast(91%);
+    --greenFilter: brightness(0) saturate(100%) invert(54%) sepia(43%) saturate(342%) hue-rotate(68deg) brightness(94%) contrast(91%);
+    --darkFilter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(26%) hue-rotate(258deg) brightness(93%) contrast(102%);
 }
 
 .dark {
@@ -39,6 +40,7 @@ MADE ON EARTH BY HUMANS */
     --delColor2: #fff;
     --popupBorder: 1px solid #fff;
     --greenFilter: none;
+    --darkFilter: none;
 }
 
 html,
@@ -158,7 +160,6 @@ main {
 
     img {
         filter: invert(49%) sepia(6%) saturate(2668%) hue-rotate(308deg) brightness(86%) contrast(84%);
-
     }
 }
 
@@ -171,14 +172,14 @@ main {
     align-items: center;
     justify-content: center;
 
-    background-color: #fff;
+    background-color: var(--bgColor);
     border: 3px solid #659C74;
     border-radius: 10px;
     padding: 5px;
 
     &:hover {
         cursor: pointer;
-        background-color: #badac3;
+        background-color: #badac330;
         border: 3px solid #335b3e;
     }
 }
@@ -221,14 +222,14 @@ main {
         padding: 10px;
         background-color: var(--inputBg);
         border: var(--inputBorder);
-        color: #357348;
+        color: var(--txtName);
         border-radius: 7px;
         box-shadow: inset 2px 2px 1px #00000030;
         width: 95%;
         transition: background-color .3s, color .3s;
 
         &::placeholder {
-            color: #365e3280;
+            color: #4eb94090;
             transition: color .3s;
         }
     }
@@ -370,6 +371,7 @@ main {
         width: 60px;
         margin: 5px;
         transition: transform .2s;
+        filter: var(--greenFilter);
 
         &:hover {
             cursor: pointer;

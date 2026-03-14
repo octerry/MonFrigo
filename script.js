@@ -59,6 +59,11 @@ if(localStorage.getItem('bigTab')) {
     bigTab = JSON.parse(localStorage.getItem('bigTab'));
     updateSmallTabs();
 }
+if(localStorage.getItem('dark')) {
+    darkmode = JSON.parse(localStorage.getItem('dark'));
+    darkmodeInput.checked = darkmode;
+    updateDarkmode();
+}
 
 
 settingsButton.addEventListener('click', function() {
@@ -141,6 +146,7 @@ dateInput.addEventListener('input', function() {
 darkmodeInput.addEventListener('input', function() {
     darkmode = this.checked
     updateDarkmode()
+    localStorage.setItem('dark', darkmode);
 })
 
 changeIconButton.addEventListener('click', function() {
