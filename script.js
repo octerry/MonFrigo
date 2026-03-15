@@ -435,5 +435,23 @@ function updateDarkmode() {
         root.classList.remove('dark')
     }
 }
-
 updateDarkmode()
+
+// Systeme de NOTIFICATION (mis en pause en attendant de comprendre mieux la connexion aux serveurs)
+
+// Notification.requestPermission(function() {
+//     if(Notification.permission == "granted") {
+//
+//     } else {
+//         console.log("La permission a été refusée")
+//     }
+// })
+//
+// let notif = new Notification("Mon Frigo", {
+//     body : "La date de peremption de Nom Produit arrive bientôt",
+//     icon : "source/icon20.svg"
+// })
+//
+// notif.onclick = function(){
+//     window.open('index.html')
+// }
