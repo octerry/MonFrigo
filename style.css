@@ -16,6 +16,7 @@ MADE ON EARTH BY HUMANS */
     --txtColor: #000;
     --settingsColor: #676767;
     --cellBgColor: #fff;
+    --passedCellBgColor: #FFD8D8;
     --inputBg: #49804340;
     --inputBorder: none;
     --txtName: #144021;
@@ -32,6 +33,7 @@ MADE ON EARTH BY HUMANS */
     --txtColor: #fff;
     --settingsColor: #fff;
     --cellBgColor: #0D2A08;
+    --passedCellBgColor: #500d0d;
     --inputBg: #0C1216;
     --inputBorder: 1px solid #357348;
     --txtName: #fff;
@@ -152,7 +154,7 @@ main {
 
 .dead.cell {
     border: 3px solid #9C6566;
-    background-color: #FFD8D8;
+    background-color: var(--passedCellBgColor);
 
     h3 {
         color: #9C6566;

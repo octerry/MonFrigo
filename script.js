@@ -19,6 +19,7 @@ let daysByMonth = [31,29,31,30,31,30,31,31,30,31,30,31]
 let selected = null;
 let selectedIcon = 20;
 let darkmode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+let isCurrentlyEditting = false;
 
 // Buttons
 let addButton = document.getElementById('add_button');
@@ -71,17 +72,18 @@ settingsButton.addEventListener('click', function() {
 })
 
 addButton.addEventListener('click', function(){
+    isCurrentlyEditting = false;
     editPopup.style.animation = "popupAppear .5s forwards";
     blackScreen.style.animation = "blackScreenAppear .5s forwards";
 })
 
 crossButtons[0].addEventListener('click', function() {
-    editPopup.style.animation = "popupDisappear .5s forwards"
+    showPopup.style.animation = "popupDisappear .5s forwards"
     blackScreen.style.animation = "blackScreenDisappear .5s forwards";
 })
 
 crossButtons[1].addEventListener('click', function() {
-    showPopup.style.animation = "popupDisappear .5s forwards"
+    editPopup.style.animation = "popupDisappear .5s forwards"
     blackScreen.style.animation = "blackScreenDisappear .5s forwards";
 })
 
@@ -91,6 +93,13 @@ crossButtons[2].addEventListener('click', function() {
 
 crossButtons[3].addEventListener('click', function() {
     settingsPopup.style.animation = "popupDisappear .5s forwards"
+})
+
+showEditButton.addEventListener('click', ()=>{
+    isCurrentlyEditting = true;
+    updateEdittingScreen();
+    editPopup.style.animation = "popupAppear .5s forwards";
+    blackScreen.style.animation = "blackScreenAppear .5s forwards";
 })
 
 showDeleteButton.addEventListener('click', function() {
@@ -195,21 +204,33 @@ submitButton.addEventListener('click', function() {
             }
         }
     }
-
+    
     if(!nameInput.classList.contains("error") && !dateInput.classList.contains("error")) {
-        let newDate = dateInput.value.split("/");        let dayInput = newDate[0];
+        let newDate = dateInput.value.split("/");
         let day = newDate[0];
         let month = newDate[1];
         let year = newDate[2];
 
- 
         let cellContent = {
             name: nameInput.value,
             preference: checkInput.checked,
             date: `${year}-${month}-${day}`,
-            icon: selectedIcon, // -------------- A CHANGER !!!!! ------------------------
+            icon: selectedIcon,
         }
-        bigTab.push(cellContent)
+
+        if (isCurrentlyEditting) bigTab.splice(selected, 1, cellContent); // Remplace
+        else bigTab.push(cellContent) // Ajoute
+
+        if (isCurrentlyEditting) {
+            let nameOutput = showName.children[1];
+            let dateOutput = showDate.children[1];
+            let iconOutput = showIcon.children[0];
+
+            nameOutput.innerHTML = nameInput.value;
+            dateOutput.innerHTML = (checkInput.checked? "À consommer de préférence avant le " : "À consommer avant le") + `${day}/${month}/${year}`;
+            iconOutput.src = "source/icon" + selectedIcon + ".svg";
+        }
+
         bigTab.sort((x, y) => dateStrToInt(x.date) - dateStrToInt(y.date))
         updateSmallTabs();
         nameInput.value = "";
@@ -245,10 +266,16 @@ for(let i=0; i<iconButtons.length; i++) {
 //     updateShowPopup()
 // });
 
-window.addEventListener('click', event => {
-
-})
-
+// window.addEventListener('click', e => {
+//     if (e.target.id === "black_screen") {
+//         showPopup.style.animation = "popupDisappear .5s forwards"
+//         blackScreen.style.animation = "blackScreenDisappear .5s forwards";
+//         editPopup.style.animation = "popupDisappear .5s forwards"
+//         blackScreen.style.animation = "blackScreenDisappear .5s forwards";
+//         deletePopup.style.animation = "popupDisappear .5s forwards";
+//         settingsPopup.style.animation = "popupDisappear .5s forwards"
+//     }
+// })
 
 function updateShowPopup() {
     let nameOutput = showName.children[1];
@@ -269,6 +296,7 @@ function updateShowPopup() {
 
         nameOutput.innerHTML = selectedCell.name;
         dateOutput.innerHTML = consomationText + newDate;
+        selectedIcon = selectedCell.icon;
         iconOutput.src = "source/icon" + selectedCell.icon + ".svg";
     }
 } 
@@ -303,6 +331,20 @@ function updateSmallTabs() {
         tuto.style.display = "block";
     } else {
         tuto.style.display = "none";
+    }
+}
+
+function updateEdittingScreen() {
+    if(selected != null && selected < bigTab.length) {
+        let selectedCell = bigTab[selected];
+        let newDate = selectedCell.date.split('-');
+        newDate = String(parseInt(newDate[2])).padStart(2, '0') + "/" + String(parseInt(newDate[1])).padStart(2, '0') + "/" + newDate[0]
+
+
+        nameInput.value = selectedCell.name; 
+        checkInput.checked = selectedCell.preference;
+        dateInput.value = newDate;
+        changeIconButton.children[0].src = "source/icon" + selectedCell.icon + ".svg";
     }
 }
 
@@ -420,14 +462,10 @@ function isPast([dayInput, monthInput, yearInput]) {
         }
     }
     return false
-} 
-
-function sortByDate(tab) {
 }
 
 function updateDarkmode() {
     let root = document.documentElement
-    console.log(window.getComputedStyle(root).getPropertyValue('--bgColor'));
 
     if(darkmode) {
         root.classList.add('dark')
@@ -435,6 +473,7 @@ function updateDarkmode() {
         root.classList.remove('dark')
     }
 }
+
 updateDarkmode()
 
 // Systeme de NOTIFICATION (mis en pause en attendant de comprendre mieux la connexion aux serveurs)
